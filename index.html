@@ -4,58 +4,81 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Price Calculator</title>
-  
-  <!-- OneSignal Push Notification SDK -->
-  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    /* Your original styles */
+    body {
+      background-color: #1a202c;
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      display: flex;
+      height: 100vh;
+      padding: 20px;
+      gap: 20px;
+    }
+    .form-container {
+      width: 30%;
+      background-color: #2d3748;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+    /* Your other styles continue here */
+    /* Don't forget to paste all of your original styles here */
+  </style>
+</head>
+<body>
+
+  <!-- Your original HTML content continues here -->
+  <div class="container">
+    <div class="form-container">
+      <!-- Content like forms, buttons, etc. goes here -->
+    </div>
+
+    <div style="width: 70%; padding: 20px;">
+      <iframe src="https://example-3d-model-database.com" title="3D Model Database"></iframe>
+    </div>
+  </div>
+
+  <!-- Push Notification and PWA integration code -->
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
   <script>
-    window.OneSignal = window.OneSignal || [];
+    // Initialize OneSignal for push notifications
     OneSignal.push(function() {
       OneSignal.init({
-        appId: "YOUR_ONESIGNAL_APP_ID",  // Replace with your OneSignal App ID
-        safari_web_id: "YOUR_SAFARI_WEB_ID", // Replace with your Safari Web ID
-        notifyButton: {
-          enable: true, // Enable notification button on your site
-        },
+        appId: "YOUR_APP_ID",  // Replace with your OneSignal App ID
       });
+
+      // Trigger push notifications for certain actions
+      function triggerNotification() {
+        OneSignal.sendSelfNotification(
+          "New Model Added!", 
+          "Check out the latest 3D model for sale.", 
+          "https://yourwebsite.com", 
+          { /* Additional options here */ }
+        );
+      }
+
+      // Trigger when user clicks "Add to Queue" (as an example)
+      document.querySelector('.button').addEventListener('click', triggerNotification);
     });
   </script>
 
-  <!-- Manifest File for PWA -->
-  <link rel="manifest" href="/manifest.json">
-
-  <!-- Service Worker Registration -->
+  <!-- PWA Service Worker and Manifest -->
   <script>
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js')
-        .then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
-    }
-  </script>
-</head>
-<body>
-  <h1>Welcome to My Web App!</h1>
-
-  <!-- Your existing content here -->
-
-  <!-- Example Button to Trigger Push Notification -->
-  <button onclick="sendNotification()">Send Push Notification</button>
-
-  <script>
-    function sendNotification() {
-      OneSignal.push(function() {
-        OneSignal.sendSelfNotification(
-          'Hello!', // Title of the notification
-          'This is a test notification.', // Body of the notification
-          null, // URL to open on click (leave null for default behavior)
-          null, // Icon image URL (leave null for default)
-          null  // Additional data (optional)
-        );
+      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
+        console.log('Service Worker registered with scope:', registration.scope);
+      }).catch(function(error) {
+        console.log('Service Worker registration failed:', error);
       });
     }
   </script>
+
+  <link rel="manifest" href="/manifest.json">
 </body>
 </html>
