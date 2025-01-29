@@ -6,7 +6,6 @@
   <title>Price Calculator</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Your original styles */
     body {
       background-color: #1a202c;
       color: white;
@@ -27,58 +26,393 @@
       padding: 20px;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     }
-    /* Your other styles continue here */
-    /* Don't forget to paste all of your original styles here */
+    .form-container h1, .form-container h2 {
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .input-field {
+      background-color: #4a5568;
+      color: white;
+      padding: 12px;
+      border: 1px solid #2d3748;
+      border-radius: 5px;
+      width: 100%;
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+    .toggle-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+    }
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 50px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 12px;
+      width: 12px;
+      border-radius: 50px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      transition: .4s;
+    }
+    input:checked + .slider {
+      background-color: #3182ce;
+    }
+    input:checked + .slider:before {
+      transform: translateX(20px);
+    }
+    .button {
+      background-color: #3182ce;
+      padding: 12px;
+      border-radius: 8px;
+      border: none;
+      color: white;
+      font-size: 1rem;
+      width: 100%;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .button:hover {
+      background-color: #2b6cb0;
+    }
+    .total-cost {
+      background-color: #4a5568;
+      padding: 12px;
+      margin-top: 15px;
+      border-radius: 5px;
+      font-weight: bold;
+      color: #ecc94b;
+      text-align: center;
+    }
+    .queue-item {
+      background-color: #4a5568;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    a {
+      color: #63b3ed;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      background-color: #2d3748;
+      border-radius: 10px;
+    }
+    .info-btn, .how-to-use-btn {
+      background-color: transparent;
+      color: #ccc;
+      border: 2px solid #ccc;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.3s, color 0.3s, transform 0.3s;
+    }
+    .info-btn:hover, .how-to-use-btn:hover {
+      background-color: #3182ce;
+      color: white;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease-in-out;
+    }
+    .modal.show {
+      display: flex;
+      opacity: 1;
+    }
+    .modal-content {
+      background-color: #2d3748;
+      padding: 20px;
+      border-radius: 10px;
+      width: 300px;
+      color: white;
+      position: relative;
+      transform: scale(0.5);
+      transition: transform 0.3s ease-in-out;
+    }
+    .modal-content p {
+      font-size: 1rem;
+    }
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: transparent;
+      color: #ccc;
+      font-size: 1.5rem;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+    .close-btn:hover {
+      color: white;
+    }
+    .how-to-use-section {
+      background-color: #2d3748;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Your original HTML content continues here -->
   <div class="container">
+    <!-- Left Container (Form) -->
     <div class="form-container">
-      <!-- Content like forms, buttons, etc. goes here -->
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h1>Price Calculator</h1>
+        <button class="how-to-use-btn" onclick="showHowToUseModal()">?</button>
+      </div>
+
+      <!-- How-to-use Modal -->
+      <div id="howToUseModal" class="modal">
+        <div class="modal-content">
+          <button class="close-btn" onclick="closeHowToUseModal()">×</button>
+          <p><strong>How to Use:</strong></p>
+          <p>Select your desired 3D model from the database on the right. Pick one of the print profiles (e.g., filament, time) and the calculator will show the price. Enter a URL for the model if needed.</p>
+        </div>
+      </div>
+
+      <!-- Input fields for Name -->
+      <div class="input-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" class="input-field" placeholder="Enter your name" />
+      </div>
+
+      <!-- Phone/Email field (combined) -->
+      <div class="input-group">
+        <label for="contact">Phone or Email</label>
+        <input id="contact" type="text" class="input-field" placeholder="Enter your phone or email" />
+      </div>
+
+      <!-- Existing Input fields -->
+      <div class="input-group">
+        <label for="filament">Filament (grams)</label>
+        <input id="filament" type="number" class="input-field" placeholder="Enter filament in grams" oninput="updateTotalCost()" min="0" />
+      </div>
+      <div class="input-group">
+        <label for="time">Time (hours)</label>
+        <input id="time" type="number" class="input-field" placeholder="Enter time in hours" oninput="updateTotalCost()" min="0" />
+      </div>
+      <div class="input-group toggle-container">
+        <label for="complexity" class="toggle-label">Complex?</label>
+        <label class="switch">
+          <input id="complexity" type="checkbox" onchange="updateTotalCost()" />
+          <span class="slider"></span>
+        </label>
+        <button class="info-btn" onclick="showModal()">i</button>
+      </div>
+      <div class="input-group">
+        <label for="modelLink">Model Link</label>
+        <input id="modelLink" type="url" class="input-field" placeholder="Enter model URL" />
+      </div>
+
+      <div class="total-cost" id="totalCost">
+        Total Cost: $0.00
+      </div>
+      <button class="button" onclick="addToQueue()">Add to Queue</button>
+
+      <h2>Print Queue</h2>
+      <ul id="queueList">
+        <!-- Queue items will appear here -->
+      </ul>
     </div>
 
+    <!-- Right Container (Iframe) -->
     <div style="width: 70%; padding: 20px;">
       <iframe src="https://example-3d-model-database.com" title="3D Model Database"></iframe>
     </div>
   </div>
 
-  <!-- Push Notification and PWA integration code -->
-  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js"></script>
-  <script>
-    // Initialize OneSignal for push notifications
-    OneSignal.push(function() {
-      OneSignal.init({
-        appId: "YOUR_APP_ID",  // Replace with your OneSignal App ID
-      });
+  <!-- Modal for Info -->
+  <div id="infoModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeModal()">×</button>
+      <p>Tiny Details, A lot of overhangs, or fragile looking parts</p>
+    </div>
+  </div>
 
-      // Trigger push notifications for certain actions
-      function triggerNotification() {
-        OneSignal.sendSelfNotification(
-          "New Model Added!", 
-          "Check out the latest 3D model for sale.", 
-          "https://yourwebsite.com", 
-          { /* Additional options here */ }
-        );
+  <script>
+    const queue = [];
+
+    function isValidName(name) {
+      return /^[a-zA-Z ]+$/.test(name);
+    }
+
+    function isValidContact(contact) {
+      const phonePattern = /^[0-9]{10}$/;
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      return phonePattern.test(contact) || emailPattern.test(contact);
+    }
+
+    function isValidFilament(filament) {
+      return filament > 0;
+    }
+
+    function isValidTime(time) {
+      return time > 0;
+    }
+
+    function isValidURL(url) {
+      const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+      return urlPattern.test(url);
+    }
+
+    function calculateTotalCost() {
+      const filament = parseFloat(document.getElementById('filament').value || 0);
+      const time = parseFloat(document.getElementById('time').value || 0);
+      const complexity = document.getElementById('complexity').checked;
+      const filamentCost = filament * 0.10;
+      const timeCost = time * 1.50;
+      const complexityCost = complexity ? 5 : 0;
+      return (filamentCost + timeCost + complexityCost).toFixed(2);
+    }
+
+    function updateTotalCost() {
+      const totalCost = calculateTotalCost();
+      document.getElementById('totalCost').innerText = `Total Cost: $${totalCost}`;
+    }
+
+    function addToQueue() {
+      const name = document.getElementById('name').value;
+      const contact = document.getElementById('contact').value;
+      const filament = document.getElementById('filament').value;
+      const time = document.getElementById('time').value;
+      const complexity = document.getElementById('complexity').checked;
+      const modelLink = document.getElementById('modelLink').value;
+
+      // Validate inputs
+      if (!name || !isValidName(name)) {
+        alert("Please enter a valid name.");
+        return;
+      }
+      if (!contact || !isValidContact(contact)) {
+        alert("Please enter a valid phone number or email.");
+        return;
+      }
+      if (!filament || !isValidFilament(filament)) {
+        alert("Please enter a valid filament amount.");
+        return;
+      }
+      if (!time || !isValidTime(time)) {
+        alert("Please enter a valid time.");
+        return;
+      }
+      if (modelLink && !isValidURL(modelLink)) {
+        alert("Please enter a valid model URL.");
+        return;
       }
 
-      // Trigger when user clicks "Add to Queue" (as an example)
-      document.querySelector('.button').addEventListener('click', triggerNotification);
-    });
-  </script>
+      const item = {
+        filament,
+        time,
+        complexity,
+        modelLink,
+        name,
+        contact
+      };
 
-  <!-- PWA Service Worker and Manifest -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/service-worker.js').then(function(registration) {
-        console.log('Service Worker registered with scope:', registration.scope);
-      }).catch(function(error) {
-        console.log('Service Worker registration failed:', error);
+      queue.push(item);
+      updateQueueList();
+      updateTotalCost();
+
+      // Clear form fields
+      document.getElementById('filament').value = '';
+      document.getElementById('time').value = '';
+      document.getElementById('complexity').checked = false;
+      document.getElementById('modelLink').value = '';
+      document.getElementById('name').value = '';
+      document.getElementById('contact').value = '';
+    }
+
+    function updateQueueList() {
+      const queueList = document.getElementById('queueList');
+      queueList.innerHTML = '';
+      queue.forEach((item, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <div class="queue-item">
+            <p><strong>Filament:</strong> ${item.filament}g</p>
+            <p><strong>Time:</strong> ${item.time} hrs</p>
+            <p><strong>Complexity:</strong> ${item.complexity ? 'Yes' : 'No'}</p>
+            <p><strong>Model:</strong> <a href="${item.modelLink}" target="_blank">Link</a></p>
+            <p><strong>Name:</strong> ${item.name}</p>
+            <p><strong>Contact:</strong> ${item.contact}</p>
+          </div>
+        `;
+        queueList.appendChild(listItem);
       });
+    }
+
+    function showModal() {
+      document.getElementById('infoModal').classList.add('show');
+    }
+
+    function closeModal() {
+      document.getElementById('infoModal').classList.remove('show');
+    }
+
+    function showHowToUseModal() {
+      document.getElementById('howToUseModal').classList.add('show');
+    }
+
+    function closeHowToUseModal() {
+      document.getElementById('howToUseModal').classList.remove('show');
     }
   </script>
 
-  <link rel="manifest" href="/manifest.json">
 </body>
 </html>
