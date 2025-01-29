@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Price Calculator</title>
+  
+  <!-- OneSignal Push Notification SDK -->
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "YOUR_ONESIGNAL_APP_ID",  // Replace with your OneSignal App ID
+        safari_web_id: "YOUR_SAFARI_WEB_ID", // Replace with your Safari Web ID
+        notifyButton: {
+          enable: true, // Enable notification button on your site
+        },
+      });
+    });
+  </script>
+
+  <!-- Manifest File for PWA -->
+  <link rel="manifest" href="/manifest.json">
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    }
+  </script>
+</head>
+<body>
+  <h1>Welcome to My Web App!</h1>
+
+  <!-- Your existing content here -->
+
+  <!-- Example Button to Trigger Push Notification -->
+  <button onclick="sendNotification()">Send Push Notification</button>
+
+  <script>
+    function sendNotification() {
+      OneSignal.push(function() {
+        OneSignal.sendSelfNotification(
+          'Hello!', // Title of the notification
+          'This is a test notification.', // Body of the notification
+          null, // URL to open on click (leave null for default behavior)
+          null, // Icon image URL (leave null for default)
+          null  // Additional data (optional)
+        );
+      });
+    }
+  </script>
+</body>
+</html>
