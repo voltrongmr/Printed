@@ -3,196 +3,486 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Futuristic Website</title>
+    <link rel="icon" type="image/png" href="favicon (1).ico">
+    <title>Home</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
         }
 
         body {
-            background: #0d0d0d;
-            color: #e0e0e0;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* Navbar */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-        }
-
-        nav .logo {
-            font-size: 1.5em;
-            color: #00ffcc;
-            font-weight: bold;
-        }
-
-        nav ul {
-            list-style: none;
-            display: flex;
-        }
-
-        nav ul li {
-            margin: 0 20px;
-        }
-
-        nav ul li a {
-            color: #e0e0e0;
-            text-decoration: none;
-            font-size: 1.1em;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #00ffcc;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            opacity: 0;
-            animation: fadeIn 1.5s ease forwards;
-        }
-
-        .hero h1 {
-            font-size: 4em;
-            color: #00ffcc;
-            margin-bottom: 20px;
-        }
-
-        .hero p {
-            font-size: 1.5em;
-            max-width: 600px;
-        }
-
-        /* Sections */
-        section {
-            padding: 100px 20px;
+            font-family: 'Segoe UI', Arial, sans-serif;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            color: #ffffff;
+            transition: all 0.3s ease;
         }
 
-        section.visible {
-            opacity: 1;
-            transform: translateY(0);
+        .light-mode {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #2d3748;
         }
 
-        section h2 {
-            font-size: 2.5em;
-            color: #00ffcc;
-            margin-bottom: 20px;
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        section p {
-            font-size: 1.2em;
-            max-width: 800px;
-            text-align: center;
+        h2, h3 {
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            color: inherit;
         }
 
-        /* Animations */
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
+        .input-field {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 1rem;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1rem;
         }
 
-        /* Neon Button */
+        .input-field:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #4f9eeb;
+        }
+
         .btn {
-            display: inline-block;
-            padding: 15px 30px;
-            margin-top: 20px;
-            background: none;
-            border: 2px solid #00ffcc;
-            color: #00ffcc;
-            text-decoration: none;
-            font-size: 1.2em;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            background: #4f9eeb;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .btn:hover {
-            background: #00ffcc;
-            color: #0d0d0d;
+            background: #357abd;
+            transform: translateY(-1px);
+        }
+
+        .theme-toggle-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #4f9eeb;
+            border-radius: 20px;
+        }
+
+        .teacher-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #48bb78;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .teacher-btn:hover {
+            background: #38a169;
+        }
+
+        .back-btn {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            padding: 10px 20px;
+            background: #ed64a6;
+            border-radius: 20px;
+        }
+
+        .back-btn.active {
+            display: block;
+        }
+
+        .quote {
+            margin: 1.5rem 0;
+            font-style: italic;
+            opacity: 0.8;
+            font-size: 1.1rem;
+        }
+
+        .button-container {
+            display: grid;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .games-container, .gemini-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .games-container.active, .gemini-container.active {
+            display: flex;
+        }
+
+        .games-container iframe, .gemini-container iframe {
+            width: 90%;
+            height: 90%;
+            border-radius: 12px;
+            border: none;
+        }
+
+        .dynamic-code-container, .caution-container {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .caution-container {
+            background: rgba(231, 76, 60, 0.2);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+        }
+
+        .quad-chart {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .file-box {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .file-box a {
+            color: #ed64a6;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .file-box a:hover {
+            color: #f687b3;
+        }
+
+        .logo {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 50px;
+            border-radius: 8px;
+            padding: 4px;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            .quad-chart {
+                grid-template-columns: 1fr;
+            }
+            .container {
+                margin: 20px;
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
-<body>
-    <nav>
-        <div class="logo">FUTURE</div>
-        <ul>
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-    </nav>
+<body class="dark-mode">
+    <!-- HTML structure remains the same, only styling updated -->
+    <button class="theme-toggle-btn" id="theme-toggle-btn">Toggle Theme</button>
+    <button class="btn teacher-btn" id="teacher-btn">Teacher</button>
 
-    <div class="hero" id="home">
-        <h1>Welcome to the Future</h1>
-        <p>A clean, futuristic design with smooth transitions.</p>
-        <a href="#about" class="btn">Learn More</a>
+    <div class="container passcode-container active">
+        <h2>Enter Passcode</h2>
+        <input type="password" id="passcode-input" class="input-field" placeholder="Enter your passcode" />
+        <button class="btn" id="submit-btn">Submit</button>
+        <div id="error-message" style="color: #ed64a6; display: none; margin-top: 1rem;">Incorrect passcode</div>
     </div>
 
-    <section id="about">
-        <h2>About Us</h2>
-        <p>We’re crafting the next generation of web experiences with cutting-edge technology and design.</p>
-    </section>
+    <!-- Rest of the HTML remains unchanged, only class names and structure preserved -->
+    <div class="container content-container">
+        <div class="welcome-message" id="welcome-message"></div>
+        <div class="quote" id="quote"></div>
+        <div class="feedback-form" id="feedback-form">
+            <button id="submit-feedback-btn" class="btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSdI0M5cOMEgDLxNpwzt6ygNtp02W9JTtOLFKZ-d5E-eoEqr-g/viewform?usp=sf_link', '_blank')">Submit Feedback</button>
+        </div>
+        <div class="button-container">
+            <button class="btn" id="games-btn">Games</button>
+            <button class="btn" id="hacks-btn">Hacks</button>
+            <button class="btn" id="gemini-btn">Blackbox AI</button>
+        </div>
+    </div>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Reach out to explore the possibilities of tomorrow.</p>
-        <a href="#" class="btn">Get in Touch</a>
-    </section>
+    <div class="container new-section">
+        <h3>How to Use Bookmarklets</h3>
+        <p>Drag these links to your bookmarks bar and click them on any page to activate.</p>
+        <div class="bookmarklet-container"></div>
+        <button class="back-btn back-btn-hacks">Back</button>
+    </div>
 
+    <div class="games-container">
+        <iframe src="https://roblox-unblock.github.io/"></iframe>
+        <button class="back-btn back-btn-games">Back</button>
+    </div>
+
+    <div class="gemini-container">
+        <iframe src="https://blackbox.ai"></iframe>
+        <button class="back-btn back-btn-gemini">Back</button>
+    </div>
+
+    <div class="container dynamic-code-container">
+        <h3>Welcome, Lyric</h3>
+        <p>Current secret code:</p>
+        <div id="dynamic-code"></div>
+        <button class="back-btn back-btn-dynamic">Back</button>
+    </div>
+
+    <div class="container caution-container">
+        <h3>Caution Section</h3>
+        <p>Warning: These links contain potentially disruptive code</p>
+        <div class="quad-chart">
+            <!-- Quad chart content remains the same -->
+            <div class="file-box">
+                <a href="javascript:(function(){var url='https://www.youtube.com/watch?v=pAH1B_z4_MI';for(var i=0;i<50;i++){window.open(url,'_blank','noopener,noreferrer');}})();">Open 50 YouTube Windows</a>
+                <p>Opens 50 YouTube tabs - use with caution</p>
+            </div>
+            <div class="file-box">
+                <a href="javascript:(function(){window.open('https://www.coolmathgames.com'); window.open('https://www.hoodamath.com'); window.open('https://gemini.google.com');})();">lookproductive</a>
+                <p>Opens game sites disguised as productivity tools</p>
+            </div>
+            <div class="file-box">
+                <a href="javascript:(function() { if (document.body.style.transform === 'rotate(180deg)') { document.body.style.transform = ''; } else { document.body.style.transform = 'rotate(180deg)'; } })();">Kahoot hack</a>
+                <p>Flips webpage upside down</p>
+            </div>
+            <div class="file-box">
+                <a href="javascript:(function(){const message = document.createElement('div');message.textContent = 'WAT THE SIGMA';message.style.position = 'fixed';message.style.top = '50%';message.style.left = '50%';message.style.transform = 'translate(-50%, -50%)';message.style.fontSize = '50px';message.style.fontWeight = 'bold';message.style.color = 'red';message.style.backgroundColor = 'black';message.style.padding = '20px';message.style.borderRadius = '10px';message.style.zIndex = '10000';document.body.appendChild(message);})();">WAT THE SIGMA</a>
+                <p>Displays a large "WAT THE SIGMA" message</p>
+            </div>
+        </div>
+        <button class="back-btn back-btn-caution">Back</button>
+    </div>
+
+    <img src="logo.png" alt="Bored Logo" class="logo" id="logo">
+
+    <!-- JavaScript remains unchanged -->
     <script>
-        // Smooth scrolling for nav links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
+        // [Previous JavaScript code remains exactly the same]
+        const passcodeInput = document.getElementById('passcode-input');
+        const submitBtn = document.getElementById('submit-btn');
+        const errorMessage = document.getElementById('error-message');
+        const gamesBtn = document.getElementById('games-btn');
+        const hacksBtn = document.getElementById('hacks-btn');
+        const geminiBtn = document.getElementById('gemini-btn');
+        const backBtnHacks = document.querySelector('.back-btn-hacks');
+        const backBtnGames = document.querySelector('.back-btn-games');
+        const backBtnGemini = document.querySelector('.back-btn-gemini');
+        const backBtnDynamic = document.querySelector('.back-btn-dynamic');
+        const backBtnCaution = document.querySelector('.back-btn-caution');
+        const bookmarkletContainer = document.querySelector('.bookmarklet-container');
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const welcomeMessage = document.getElementById('welcome-message');
+        const quote = document.getElementById('quote');
+        const teacherBtn = document.getElementById('teacher-btn');
+        const logo = document.getElementById('logo');
+        const dynamicCode = document.getElementById('dynamic-code');
+
+        const quotes = [
+            "Do one thing every day that scares you. - Eleanor Roosevelt",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts. - Winston Churchill",
+            "The only way to do great work is to love what you do. - Steve Jobs",
+            "Believe you can and you're halfway there. - Theodore Roosevelt",
+            "Act as if what you do makes a difference. It does. - William James"
+        ];
+
+        let currentDynamicCode = '';
+
+        function getRandomQuote() {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            return quotes[randomIndex];
+        }
+
+        function updateGreeting() {
+            const now = new Date();
+            const hours = now.getHours();
+            let greeting;
+            if (hours < 12) {
+                greeting = "Good Morning";
+            } else if (hours < 18) {
+                greeting = "Good Afternoon";
+            } else {
+                greeting = "Good Evening";
+            }
+            welcomeMessage.textContent = `${greeting}, Welcome to BORED`;
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            document.body.classList.toggle('dark-mode');
+        }
+
+        function clearBookmarklet() {
+            bookmarkletContainer.innerHTML = '';
+        }
+
+        function generateDynamicCode() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const dynamicCodeValue = `${hours}${minutes}`;
+            return dynamicCodeValue;
+        }
+
+        function updateDynamicCode() {
+            currentDynamicCode = generateDynamicCode();
+            dynamicCode.textContent = currentDynamicCode;
+        }
+
+        document.body.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                submitBtn.click();
+            }
         });
 
-        // Fade-in sections on scroll
-        const sections = document.querySelectorAll('section');
-        const options = {
-            threshold: 0.2
-        };
+        submitBtn.addEventListener('click', () => {
+            if (passcodeInput.value === '1234') {
+                document.querySelector('.passcode-container').classList.remove('active');
+                document.querySelector('.content-container').classList.add('active');
+                errorMessage.style.display = 'none';
+                updateGreeting();
+                quote.textContent = getRandomQuote();
+            } else if (passcodeInput.value === '120120107') {
+                document.querySelector('.passcode-container').classList.remove('active');
+                document.querySelector('.dynamic-code-container').classList.add('active');
+                backBtnDynamic.classList.add('active');
+                updateDynamicCode();
+                setInterval(updateDynamicCode, 30 * 60 * 1000);
+                errorMessage.style.display = 'none';
+            } else if (passcodeInput.value === currentDynamicCode) {
+                document.querySelector('.passcode-container').classList.remove('active');
+                document.querySelector('.caution-container').classList.add('active');
+                backBtnCaution.classList.add('active');
+                dynamicCodeView.textContent = currentDynamicCode;
+                console.log(`Access granted: ${currentDynamicCode}`);
+            } else {
+                errorMessage.style.display = 'block';
+                passcodeInput.value = '';
+                console.log(`Access denied: ${passcodeInput.value} !== ${currentDynamicCode}`);
+            }
+        });
 
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        teacherBtn.addEventListener('click', () => {
+            window.location.href = 'https://classroom.google.com/';
+        });
+
+        hacksBtn.addEventListener('click', () => {
+            clearBookmarklet();
+            document.querySelector('.content-container').classList.remove('active');
+            document.querySelector('.new-section').classList.add('active');
+            backBtnHacks.classList.add('active');
+
+            const bookmarklets = [
+                {
+                    name: 'Edpuzzle',
+                    url: "javascript:(() => { const script = document.createElement('script'); script.src = 'https://cdn.jsdelivr.net/gh/ading2210/edpuzzle-answers@latest/script.js'; document.body.appendChild(script); })();"
+                },
+                {
+                    name: 'Disguise any tab',
+                    url: "javascript:(()=>{fetch('https://raw.githubusercontent.com/bananaontop/TabMask/main/Ignore.js').then(r=>r.text()).then(c=>eval(c)).catch(e=>alert('Failed to fetch code.',e));})();"
+                },
+                {
+                    name: 'Change any tab into Classroom',
+                    url: "javascript:window.location.href='https://classroom.google.com/';"
+                },
+                {
+                    name: 'quizizz hack this one is not a bookmarklet just click',
+                    url: "https://quizit.online/services/quizizz/"
+                },
+                {
+                    name: 'kahoot hack "link" use on phone',
+                    url: "https://mem.rip/kahoot/"
                 }
-            });
-        }, options);
+            ];
 
-        sections.forEach(section => {
-            observer.observe(section);
+            bookmarklets.forEach(bookmarklet => {
+                const bookmarkletHtml = `
+                    <a href="${bookmarklet.url}">
+                        ${bookmarklet.name}
+                    </a>
+                `;
+                const bookmarkletContainerDiv = document.createElement('div');
+                bookmarkletContainerDiv.innerHTML = bookmarkletHtml;
+                bookmarkletContainer.appendChild(bookmarkletContainerDiv);
+            });
         });
+
+        gamesBtn.addEventListener('click', () => {
+            document.querySelector('.content-container').classList.remove('active');
+            document.querySelector('.games-container').classList.add('active');
+            backBtnGames.classList.add('active');
+        });
+
+        geminiBtn.addEventListener('click', () => {
+            document.querySelector('.content-container').classList.remove('active');
+            document.querySelector('.gemini-container').classList.add('active');
+            backBtnGemini.classList.add('active');
+            logo.classList.add('hidden');
+            themeToggleBtn.classList.add('hidden');
+        });
+
+        backBtnHacks.addEventListener('click', () => {
+            document.querySelector('.new-section').classList.remove('active');
+            document.querySelector('.content-container').classList.add('active');
+            backBtnHacks.classList.remove('active');
+        });
+
+        backBtnGames.addEventListener('click', () => {
+            document.querySelector('.games-container').classList.remove('active');
+            document.querySelector('.content-container').classList.add('active');
+            backBtnGames.classList.remove('active');
+        });
+
+        backBtnGemini.addEventListener('click', () => {
+            document.querySelector('.gemini-container').classList.remove('active');
+            document.querySelector('.content-container').classList.add('active');
+            backBtnGemini.classList.remove('active');
+            logo.classList.remove('hidden');
+            themeToggleBtn.classList.remove('hidden');
+        });  
+
+        backBtnDynamic.addEventListener('click', () => {
+            document.querySelector('.dynamic-code-container').classList.remove('active');
+            document.querySelector('.passcode-container').classList.add('active');
+            passcodeInput.value = '';
+        });
+        
+        backBtnCaution.addEventListener('click', () => {
+            document.querySelector('.caution-container').classList.remove('active');
+            document.querySelector('.passcode-container').classList.add('active');
+            passcodeInput.value = '';
+        });
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        
+        updateDynamicCode();
+        setInterval(updateDynamicCode, 30 * 60 * 1000);
     </script>
 </body>
 </html>
